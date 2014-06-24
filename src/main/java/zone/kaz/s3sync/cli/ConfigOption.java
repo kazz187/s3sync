@@ -23,6 +23,13 @@ public class ConfigOption {
 	@Parameter(names = "--header", description = "Set a given HTTP header to the upload request. For instance set 'Expires' or 'Cache-Control' headers (or both) using this options if you like.")
 	private String header;
 
+	@Parameter(names = "--dir", description = "dir.", required = true)
+	private String dir;
+
+	@Parameter(names = "--bucket", description = "bucket. s3://bucket_name/path", required = true)
+	private String bucket;
+
+
 	private static JsonFactory jsonFactory = new JsonFactory();
 
 	private static String ACCESS_KEY_NAME = "access_key";
@@ -33,6 +40,8 @@ public class ConfigOption {
 		loadConfigFile();
 		Config.aclPublic = aclPublic;
 		Config.header = header;
+		Config.dir = dir;
+		Config.bucket = bucket;
 	}
 
 	private void loadConfigFile() {

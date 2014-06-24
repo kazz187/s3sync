@@ -8,4 +8,6 @@ public class Config {
 	public static String secretKey;
 	public static boolean aclPublic;
 	public static String header;
+	public static String dir;
+	public static String bucket;
 }
