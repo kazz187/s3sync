@@ -29,6 +29,9 @@ public class ConfigOption {
 	@Parameter(names = "--bucket", description = "bucket. s3://bucket_name/path", required = true)
 	private String bucket;
 
+	@Parameter(names = "--concurrent", description = "Concurrent num")
+	private int threadNum = 10;
+
 
 	private static JsonFactory jsonFactory = new JsonFactory();
 
@@ -42,6 +45,7 @@ public class ConfigOption {
 		Config.header = header;
 		Config.dir = dir;
 		Config.bucket = bucket;
+		Config.threadNum = threadNum;
 	}
 
 	private void loadConfigFile() {

@@ -10,4 +10,5 @@ public class Config {
 	public static String header;
 	public static String dir;
 	public static String bucket;
+	public static int threadNum;
 }
