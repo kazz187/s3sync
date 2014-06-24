@@ -3,3 +3,4 @@ AwsCredentials.properties
 target/
 *.iml
 .gradle/
+out/
