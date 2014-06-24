@@ -1,0 +1,5 @@
+AwsCredentials.properties
+.idea
+target/
+*.iml
+.gradle/
