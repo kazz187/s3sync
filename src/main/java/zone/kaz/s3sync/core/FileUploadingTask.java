@@ -2,6 +2,7 @@ package zone.kaz.s3sync.core;
 
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
@@ -38,6 +39,8 @@ public class FileUploadingTask implements Runnable {
             metadata.setHeader(key, Config.header.get(key));
             request.setMetadata(metadata);
         }
+
+        request.withCannedAcl(Config.aclPublic ? CannedAccessControlList.PublicRead : CannedAccessControlList.Private);
 
         boolean retry;
         do {

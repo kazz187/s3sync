@@ -110,8 +110,6 @@ public class ConfigOption {
             System.exit(1);
         }
         Config.header.put(matcher.group(1), matcher.group(2));
-        System.out.println(matcher.group(1));
-        System.out.println(matcher.group(2));
     }
 
 }
