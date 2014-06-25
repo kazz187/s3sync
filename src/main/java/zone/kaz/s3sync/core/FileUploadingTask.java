@@ -22,15 +22,15 @@ public class FileUploadingTask implements Runnable {
     private final static AmazonS3Client amazonS3Client = new AmazonS3Client(
             new BasicAWSCredentials(Config.accessKey, Config.secretKey));
 
-	public FileUploadingTask(File rootFile, File file) {
+    public FileUploadingTask(File rootFile, File file) {
         this.rootFile = rootFile;
-		this.file = file;
+        this.file = file;
         this.relativePath = getRelativePath(rootFile, file);
-	}
+    }
 
-	@Override
-	public void run() {
-		System.out.println(relativePath);
+    @Override
+    public void run() {
+        System.out.println(relativePath);
         String s3FilePath = bucketPath + "/" + dirName + "/" + relativePath;
         PutObjectRequest request = new PutObjectRequest(bucketName, s3FilePath, file);
 

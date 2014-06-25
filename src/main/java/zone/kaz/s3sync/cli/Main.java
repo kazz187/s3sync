@@ -11,10 +11,10 @@ import java.util.List;
  */
 public class Main {
 
-	public static void main(String args[]) {
-		new ConfigOption().setting(args);
-		List<File> fileList = new FileScanner().scan();
-		new FileUploader().upload(fileList);
-	}
+    public static void main(String args[]) {
+        new ConfigOption().setting(args);
+        List<File> fileList = new FileScanner().scan();
+        new FileUploader().upload(fileList);
+    }
 
 }
