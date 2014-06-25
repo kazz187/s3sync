@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import zone.kaz.s3sync.core.Config;
 
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by kazz on 2014/06/25.
@@ -42,10 +44,11 @@ public class ConfigOption {
 		new JCommander(this, args);
 		loadConfigFile();
 		Config.aclPublic = aclPublic;
-		Config.header = header;
 		Config.dir = dir;
-		Config.bucket = bucket;
 		Config.threadNum = threadNum;
+        setDirname();
+        parseBucket();
+        parseHeader();
 	}
 
 	private void loadConfigFile() {
@@ -74,5 +77,41 @@ public class ConfigOption {
 			}
 		}
 	}
+
+    private void setDirname() {
+        String regex = "^.*/([^/]+)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(dir);
+        if (!matcher.matches()) {
+            System.out.println("[ERROR] dir name is invalid.");
+            System.exit(1);
+        }
+        Config.dirName = matcher.group(1);
+    }
+
+    private void parseBucket() {
+        String regex = "^s3://([^/]+)/(.+)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(bucket);
+        if (!matcher.matches()) {
+            System.out.println("[ERROR] bucket name is invalid.");
+            System.exit(1);
+        }
+        Config.bucket = matcher.group(1);
+        Config.bucketPath = matcher.group(2);
+    }
+
+    private void parseHeader() {
+        String regex = "^(.*): *(.*)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(header);
+        if (!matcher.matches()) {
+            System.out.println("[ERROR] header is invalid.");
+            System.exit(1);
+        }
+        Config.header.put(matcher.group(1), matcher.group(2));
+        System.out.println(matcher.group(1));
+        System.out.println(matcher.group(2));
+    }
 
 }

@@ -12,8 +12,9 @@ public class FileUploader {
 	ExecutorService executor = Executors.newFixedThreadPool(Config.threadNum);
 
 	public void upload(List<File> fileList) {
+        File rootFile = new File(Config.dir);
 		for (File file : fileList) {
-			executor.execute(new FileUploadingTask(file));
+			executor.execute(new FileUploadingTask(rootFile, file));
 		}
 		executor.shutdown();
 	}
