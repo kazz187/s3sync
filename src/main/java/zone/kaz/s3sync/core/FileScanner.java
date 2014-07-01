@@ -11,33 +11,30 @@ public class FileScanner {
 
     public List<File> scan() {
         File sourceDir = new File(Config.dir);
-        List<File> fileList;
+        List<File> fileList = new ArrayList<File>();
         if (sourceDir.isDirectory()) {
-            fileList = scanDir(sourceDir);
+            scanDir(fileList, sourceDir);
         } else {
-            fileList = new ArrayList<File>();
             fileList.add(sourceDir);
         }
         return fileList;
     }
 
-    private List<File> scanDir(File dir) {
+    private void scanDir(List<File> fileList, File dir) {
         if (dir == null) {
-            return new ArrayList<File>();
+            return;
         }
         File files[] = dir.listFiles();
         if (files == null) {
-            return new ArrayList<File>();
+            return;
         }
-        List<File> fileList = new ArrayList<File>();
         for (File file : files) {
             if (file.isDirectory()) {
-                fileList.addAll(scanDir(file));
+                scanDir(fileList, file);
             } else {
                 fileList.add(file);
             }
         }
-        return fileList;
     }
 
 }
