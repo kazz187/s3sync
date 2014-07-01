@@ -79,7 +79,7 @@ public class ConfigOption {
     }
 
     private void setDirname() {
-        String regex = "^.*/([^/]+)$";
+        String regex = "^.*/([^/]+)/?$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(dir);
         if (!matcher.matches()) {
@@ -90,7 +90,7 @@ public class ConfigOption {
     }
 
     private void parseBucket() {
-        String regex = "^s3://([^/]+)/(.+)$";
+        String regex = "^s3://([^/]+)/(.*)/?$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(bucket);
         if (!matcher.matches()) {
