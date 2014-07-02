@@ -43,13 +43,14 @@ public class FileUploadingTask implements Runnable {
         request.withCannedAcl(Config.aclPublic ? CannedAccessControlList.PublicRead : CannedAccessControlList.Private);
 
         boolean retry;
+        int retryCount = 10;
         do {
             retry = false;
             try {
                 amazonS3Client.putObject(request);
             } catch (Exception e) {
-                System.out.println("[RETRY] Failed to upload: " + relativePath);
-                retry = true;
+                System.out.println("[RETRY] Failed to upload: " + relativePath + " " + e.getMessage());
+                retry = retryCount-- > 0;
             }
         } while (retry);
     }
