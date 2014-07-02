@@ -31,7 +31,7 @@ public class FileUploadingTask implements Runnable {
     @Override
     public void run() {
         System.out.println(relativePath);
-        String s3FilePath = bucketPath + "/" + dirName + "/" + relativePath;
+        String s3FilePath = getS3FilePath();
         PutObjectRequest request = new PutObjectRequest(bucketName, s3FilePath, file);
 
         ObjectMetadata metadata = new ObjectMetadata();
@@ -53,6 +53,14 @@ public class FileUploadingTask implements Runnable {
                 retry = retryCount-- > 0;
             }
         } while (retry);
+    }
+
+    private String getS3FilePath() {
+        String s3FilePath = dirName + "/" + relativePath;
+        if (!bucketPath.equals("")) {
+            s3FilePath = bucketPath + "/" + s3FilePath;
+        }
+        return s3FilePath;
     }
 
     private String getRelativePath(File rootFile, File file) {
